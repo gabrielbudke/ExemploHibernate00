@@ -10,14 +10,27 @@ import dao.AlunoDAO;
 
 /**
  *
- * @author Gabriel Budke
+ * @author Gabriel Budke 
  */
-public class AlunoCadastro extends javax.swing.JFrame {
+public class EditarAluno extends javax.swing.JFrame {
 
+    private Aluno aluno;
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+        jTextFieldId.setText(String.valueOf(aluno.getId()));
+        jTextFieldNome.setText(aluno.getNome());
+        jTextFieldNota1.setText(String.valueOf(aluno.getNota1()));
+        jTextFieldNota2.setText(String.valueOf(aluno.getNota2()));
+        jTextFieldNota3.setText(String.valueOf(aluno.getNota3()));
+        jTextFieldNota4.setText(String.valueOf(aluno.getNota4()));
+        jTextFieldFaltas.setText(String.valueOf(aluno.getQuantidadeFaltas()));
+    }
+    
     /**
      * Creates new form AlunoCadastro
      */
-    public AlunoCadastro() {
+    public EditarAluno() {
         initComponents();
     }
 
@@ -44,7 +57,9 @@ public class AlunoCadastro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldNota4 = new javax.swing.JTextField();
-        jButtonSalvar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldId = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,8 +73,6 @@ public class AlunoCadastro extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Aluno");
 
@@ -97,11 +110,20 @@ public class AlunoCadastro extends javax.swing.JFrame {
             }
         });
 
-        jButtonSalvar.setText("SALVAR");
-        jButtonSalvar.setBorder(new javax.swing.border.SoftBevelBorder(4));
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEditar.setBackground(new java.awt.Color(153, 255, 153));
+        jButtonEditar.setText("SALVAR");
+        jButtonEditar.setBorder(new javax.swing.border.SoftBevelBorder(4));
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("ID");
+
+        jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdActionPerformed(evt);
             }
         });
 
@@ -117,39 +139,47 @@ public class AlunoCadastro extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNome)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jTextFieldNota1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNota2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNota3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jTextFieldNota4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(2, 2, 2)))
+                                .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(2, 2, 2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jTextFieldNota1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldNota2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4))
+                                        .addGap(35, 35, 35)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldNota3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5))
+                                        .addGap(42, 42, 42)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jTextFieldNota4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jTextFieldId))))
                         .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -165,14 +195,14 @@ public class AlunoCadastro extends javax.swing.JFrame {
                     .addComponent(jTextFieldNota1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(258, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         Aluno aluno = new Aluno();
         aluno.setNome(jTextFieldNome.getText());
         aluno.setNota1(Double.parseDouble(jTextFieldNota1.getText()));
@@ -180,10 +210,13 @@ public class AlunoCadastro extends javax.swing.JFrame {
         aluno.setNota3(Double.parseDouble(jTextFieldNota3.getText()));
         aluno.setNota4(Double.parseDouble(jTextFieldNota4.getText()));
         aluno.setQuantidadeFaltas(Integer.parseInt(jTextFieldFaltas.getText()));
-        int id = new AlunoDAO().inserir(aluno);
+        aluno.setId(Integer.parseInt(jTextFieldId.getText()));
+        boolean alterado = new AlunoDAO().alterar(aluno);
+        dispose();
+        
 
 
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTextFieldNota4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNota4ActionPerformed
         // TODO add your handling code here:
@@ -196,6 +229,10 @@ public class AlunoCadastro extends javax.swing.JFrame {
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
+
+    private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,35 +251,40 @@ public class AlunoCadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlunoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlunoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlunoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlunoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AlunoCadastro().setVisible(true);
+                new EditarAluno().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldFaltas;
+    private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNota1;
     private javax.swing.JTextField jTextFieldNota2;
